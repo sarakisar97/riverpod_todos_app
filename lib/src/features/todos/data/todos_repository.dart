@@ -22,8 +22,3 @@ class TodosRepository {
         .toList();
   }
 }
-
-@riverpod
-FutureOr<List<Todo>> todos(TodosRef ref) {
-  return ref.watch(todosRepositoryProvider).getTodos();
-}

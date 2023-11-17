@@ -43,14 +43,12 @@ class _SystemHash {
   }
 }
 
-typedef NetworkServiceRef = ProviderRef<NetworkService<dynamic>>;
-
 /// See also [networkService].
 @ProviderFor(networkService)
 const networkServiceProvider = NetworkServiceFamily();
 
 /// See also [networkService].
-class NetworkServiceFamily extends Family<NetworkService<dynamic>> {
+class NetworkServiceFamily extends Family<NetworkService> {
   /// See also [networkService].
   const NetworkServiceFamily();
 
@@ -88,13 +86,13 @@ class NetworkServiceFamily extends Family<NetworkService<dynamic>> {
 }
 
 /// See also [networkService].
-class NetworkServiceProvider extends Provider<NetworkService<dynamic>> {
+class NetworkServiceProvider extends Provider<NetworkService> {
   /// See also [networkService].
   NetworkServiceProvider([
-    this.dio,
-  ]) : super.internal(
+    Dio? dio,
+  ]) : this._internal(
           (ref) => networkService(
-            ref,
+            ref as NetworkServiceRef,
             dio,
           ),
           from: networkServiceProvider,
@@ -106,9 +104,43 @@ class NetworkServiceProvider extends Provider<NetworkService<dynamic>> {
           dependencies: NetworkServiceFamily._dependencies,
           allTransitiveDependencies:
               NetworkServiceFamily._allTransitiveDependencies,
+          dio: dio,
         );
 
+  NetworkServiceProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.dio,
+  }) : super.internal();
+
   final Dio? dio;
+
+  @override
+  Override overrideWith(
+    NetworkService Function(NetworkServiceRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: NetworkServiceProvider._internal(
+        (ref) => create(ref as NetworkServiceRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        dio: dio,
+      ),
+    );
+  }
+
+  @override
+  ProviderElement<NetworkService> createElement() {
+    return _NetworkServiceProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -123,5 +155,18 @@ class NetworkServiceProvider extends Provider<NetworkService<dynamic>> {
     return _SystemHash.finish(hash);
   }
 }
+
+mixin NetworkServiceRef on ProviderRef<NetworkService> {
+  /// The parameter `dio` of this provider.
+  Dio? get dio;
+}
+
+class _NetworkServiceProviderElement extends ProviderElement<NetworkService>
+    with NetworkServiceRef {
+  _NetworkServiceProviderElement(super.provider);
+
+  @override
+  Dio? get dio => (origin as NetworkServiceProvider).dio;
+}
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

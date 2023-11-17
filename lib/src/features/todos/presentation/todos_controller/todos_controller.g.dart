@@ -1,25 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todos_repository.dart';
+part of 'todos_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$todosRepositoryHash() => r'91d332ed6c2080038e79c842738817cb67ab6ef5';
+String _$todosControllerHash() => r'13863a32feb4c5f171f2653e7cc61b4354405d30';
 
-/// See also [todosRepository].
-@ProviderFor(todosRepository)
-final todosRepositoryProvider = AutoDisposeProvider<TodosRepository>.internal(
-  todosRepository,
-  name: r'todosRepositoryProvider',
+/// See also [TodosController].
+@ProviderFor(TodosController)
+final todosControllerProvider =
+    AutoDisposeAsyncNotifierProvider<TodosController, List<Todo>>.internal(
+  TodosController.new,
+  name: r'todosControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$todosRepositoryHash,
+      : _$todosControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef TodosRepositoryRef = AutoDisposeProviderRef<TodosRepository>;
+typedef _$TodosController = AutoDisposeAsyncNotifier<List<Todo>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
