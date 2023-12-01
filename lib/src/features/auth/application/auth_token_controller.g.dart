@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todos_controller.dart';
+part of 'auth_token_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$todosControllerHash() => r'47f6a63465f1fd109977fdf1f19cd5d389893e99';
+String _$authTokenControllerHash() =>
+    r'dabe2f26b830f81e6a10bf1ff1b5c151f4dcf001';
 
-/// See also [TodosController].
-@ProviderFor(TodosController)
-final todosControllerProvider =
-    AutoDisposeAsyncNotifierProvider<TodosController, List<Todo>>.internal(
-  TodosController.new,
-  name: r'todosControllerProvider',
+/// See also [AuthTokenController].
+@ProviderFor(AuthTokenController)
+final authTokenControllerProvider =
+    NotifierProvider<AuthTokenController, String?>.internal(
+  AuthTokenController.new,
+  name: r'authTokenControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$todosControllerHash,
+      : _$authTokenControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TodosController = AutoDisposeAsyncNotifier<List<Todo>>;
+typedef _$AuthTokenController = Notifier<String?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

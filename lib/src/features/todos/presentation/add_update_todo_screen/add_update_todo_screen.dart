@@ -23,7 +23,7 @@ class _AddUpdateTodoScreenState extends ConsumerState<AddUpdateTodoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.todo == null ? 'Add' : 'Update'} Todo'),
+        title: Text(_todoTitle),
       ),
       body: Form(
         key: _formKey,
@@ -36,7 +36,7 @@ class _AddUpdateTodoScreenState extends ConsumerState<AddUpdateTodoScreen> {
                 decoration: const InputDecoration(
                   hintText: 'Title',
                 ),
-                validator: todoValidator,
+                validator: _todoValidator,
                 onSaved: (value) => _title = value,
               ),
               const SizedBox(height: 10),
@@ -45,7 +45,7 @@ class _AddUpdateTodoScreenState extends ConsumerState<AddUpdateTodoScreen> {
                 decoration: const InputDecoration(
                   hintText: 'Body',
                 ),
-                validator: todoValidator,
+                validator: _todoValidator,
                 onSaved: (value) => _body = value,
               ),
               const SizedBox(height: 20),
@@ -54,8 +54,8 @@ class _AddUpdateTodoScreenState extends ConsumerState<AddUpdateTodoScreen> {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
                     if (widget.todo == null) {
-                      ref.read(todosControllerProvider.notifier).add(
-                          Todo(title: _title!, body: _body!, userId: 1, id: 1));
+                      ref.read(todosControllerProvider.notifier).add(Todo(
+                          title: _title!, body: _body!, userId: 1, id: 8888));
                     } else {
                       ref
                           .read(todosControllerProvider.notifier)
@@ -69,7 +69,7 @@ class _AddUpdateTodoScreenState extends ConsumerState<AddUpdateTodoScreen> {
                     context.popRoute();
                   }
                 },
-                child: Text('${widget.todo == null ? 'Add' : 'Update'} Todo'),
+                child: Text(_todoTitle),
               ),
             ],
           ),
@@ -78,7 +78,9 @@ class _AddUpdateTodoScreenState extends ConsumerState<AddUpdateTodoScreen> {
     );
   }
 
-  String? todoValidator(value) {
+  String get _todoTitle => '${widget.todo == null ? 'Add' : 'Update'} Todo';
+
+  String? _todoValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Please enter some text';
     }

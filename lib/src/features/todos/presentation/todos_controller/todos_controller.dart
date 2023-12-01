@@ -12,15 +12,23 @@ class TodosController extends _$TodosController {
   }
 
   void delete(int todoId) {
-    state = AsyncData((state as AsyncData<List<Todo>>).asData!.value.where((element) => element.id != todoId).toList());
+    state = AsyncData((state as AsyncData<List<Todo>>)
+        .asData!
+        .value
+        .where((element) => element.id != todoId)
+        .toList());
   }
 
   void add(Todo todo) {
-    state = AsyncData((state as AsyncData<List<Todo>>).asData!.value..add(todo));
+    state =
+        AsyncData([todo, ...(state as AsyncData<List<Todo>>).asData!.value]);
   }
 
   void updateTodo(Todo todo) {
-    state = AsyncData((state as AsyncData<List<Todo>>).asData!.value.map((e) => e.id == todo.id ? todo : e).toList());
+    state = AsyncData((state as AsyncData<List<Todo>>)
+        .asData!
+        .value
+        .map((e) => e.id == todo.id ? todo : e)
+        .toList());
   }
-
 }
